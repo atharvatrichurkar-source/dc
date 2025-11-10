@@ -1,3 +1,192 @@
-zdzdfbfkdj
-sfkafkf
-fkkfd
+//EXPT 5
+clc;
+clear;
+close;
+count = csvRead('C:\scilab_projects\user defined functions\count.dat');
+for i = 1:3
+scf();
+mu(i) = mean(count(:, i));
+sigma(i) = stdev(count(:, i));
+histplot(24,count(:, i));
+xtitle('Histogram of Traffic Intersection' + string(i));
+end
+MeanTotal = mean(mean(count));
+disp('Mean for individual Traffic Intersection is =', mu);
+disp('Standard Deviation for individual Traffic Intersection is =',sigma);
+disp('Overall Mean=', MeanTotal);
+
+//EXPT 6
+clc;
+clear;
+close:
+exec('C:\scilab_projects\user defined functions\pskmod.sci');
+exec('C:\scilab_projects\user defined functions\qammod.sci');
+N=4; 
+M=2^N;
+x=0:M-1;
+zpskmod(x, М);
+scf(); 
+subplot(1,2,1);
+scatter(real(z), imag(z), "fill");
+h=gca();
+h.data_bounds = [-1.5,1.5,-1.5,1.5);
+xtitle(' Name- Atharva Trichurkar Roll no. - E3132*
+M-ary PSK', 'In-phase', 'Quadrature');
+y=qammod(x, M);
+subplot(1,2,2);
+scatter(real(y), imag(y), "fill");
+h= gca ();
+h.data_bounds = [- 3.5, 3.5, - 3.5, 3.5] ;
+xtitle('M-QAM', 'In-phase', 'Quadrature');
+
+//EXPT 7
+exec("C:\scilab_projects\user defined functions\awgn.sci');
+data_bits = 100000; 
+b=rand(1, data_bits) > 0.5; 
+5=2b-1;
+ SNRDB = 0:9;
+ fork=1:length(SNRdB)
+        y = awgn(s, SNRdB(k)); 
+        error = 0; 
+         for c = 1:data_bits
+          if ((y(c) > 0 & s(c) == -1) | (y(c) <0 & s(c) == 1)) then error error + 1; 
+          end
+        end
+BER(k) = error/data_bits; 
+    end
+SNR=10.^(SNRDB/10); 
+BER_thBPSK = (1/2) erfc(sqrt(SNR));
+BER_thQPSK = erfc(sqrt(SNR));
+ scf();
+semilogy(SNRdB, BER, 'r', 'LineWidth', 2);
+xtitle(' Name:ATHARVA TRICHURKAR  Roll No.: E3132* Probability of Error Graph', 'SNR (dB)', 'BER'); 
+xgrid;
+Semilogy(SNRdB, BER_thBPSK, 'k', 'LineWidth', 2); 
+Semilogy(SNRdB, BER_thQPSK, 'b', 'LineWidth', 2);
+ legend('Simulated BPSK', 'Theoretical BPSK', 'Theoretical QPSK')
+
+//EXPT 8
+clc;
+clear all;
+P_XY-input('enter joint probability matrix ');
+[m.n] size(P_XY);
+for i = 1:m
+            px(i) = 0;
+            for j=1:n
+            px(i)=px(i)+P_XY(i,j);
+end
+end
+disp('P(X) matrix is:")
+disp(px);
+hx=sum(-px. log2(px));
+disp('Input entropy H(X) is:')
+disp(hx);
+for i = 1: n 
+      Py(i) = 0
+      for j=1:m 
+      py(i)=py(i)+P_XY(j, i) ;
+      end
+end
+disp('P(Y) matrix is:')
+disp(py);
+hy=sum(-py.* log2 (py) );
+disp('Output Entropy H(Y) is:')
+disp(hy);
+h_xy = 0; 
+for i = 1:m
+for j = 1; n
+h_xy=h_xy+P_XY(i,j)* log 2(1/P_X Y(i, j) );
+end
+end
+disp('Entropy H(XY) is:')
+disp(h_xy);
+hxby=h_xy-hy;
+hybx = h_xy-hx;
+ixy=hx+hy-h_xy;
+disp('Mutual Information I(X, Y) is:')
+disp(ixy);
+
+//EXPT 9
+clc;
+clear:
+n=input("Enter the codeword length in LBC (n): ');
+k=input('Enter the number of message bits in LBC (m): ');
+p=input('Enter the parity check matrix');
+g=[eye(k,k)p];
+disp('Generator matrix',g);
+d= [000; 001; 010; 011; 100; 10 1; 1 10; 1 1 1]
+c=modulo(d*g. 2);
+disp('all codewords",c);
+Hw= zeros(2^k, 1);
+for i = 1:(2 ^ k)
+wt = 0;
+for j = 1:n 
+if c(i, j)=1 
+then wt = wt + 1;
+end
+end
+Hw ( 1 )=wt;
+end
+ y= [c, Hw];
+disp('code vector with hamming weight,y);
+dmin Hw(2);
+for i 2:2^k
+if dmin > Hw(i) then
+end
+dmin Hw(i);
+end
+disp('Minimum Hamming Distance is ',dmin);
+td=dmin -1;
+disp('Error Detection Capability of code(in bits) is ',td); 
+tc = (dmin 1) / 2;
+disp('Error Correctionn Capability of code(in bits) is', tc);
+disp('Transpose of parity matrix is ',p');
+H = [p', eye(nk, nk)];
+disp('Parity check matrix is ',H);
+disp('Transpose of parity check matrix is ',H');
+r = input('Enter the received codeword');
+synd modulo(r* H', 2);
+disp('Syndrome for received codeword is', synd);
+for i 1:size(H', 1)
+if H'(i, 1:nk) == synd then
+r(i) = 1 r(i);
+disp('By matching this syndrome with different rows of Traspose of parity
+check matrix, Error is at location', i);
+end
+end
+disp('Corrected codeword is ',r);
+
+//EXPT 10
+clc;
+close;
+clear;
+Dpoly (0, 'D');
+g1+D+0+D ^3; // generator polynomial
+m= (D^3) *(1+0+0+ D^3); //message sequence
+[r,q] = pdiv (m,g);
+p = coeff (r);
+disp (r, remainder in polynomial form)
+disp (p, Parity bits are:')
+disp ( Table 8.3 Contents of the Shift Register in the Encoder of fig 8.7 for Message Sequence (1001)')
+disp ('-------')
+disp ( 'Shift Input Register Contents')
+disp('-------')
+disp ('11110')
+disp ('20011')
+disp ('30111')
+disp ('41011')
+disp('--------')
+
+//syndrome calculator for the Cyclic Hamming Code
+C1=8+D+D^2+D^3+0+0+D^6; 
+C2=0+D+D^2+0+0+0+D^6;
+[r1,q1]=pdiv(C1,g);
+S1=coeff(r1);
+S1=modulo (S1,2);
+disp(r1, remainder in polynomial form')
+disp(S1, Syndrome bits for error free codeword are: ')
+[r2,q2]=pdiv(C2,g);
+S2=modulo(52,2);
+S2=coeff(r2);
+disp(r2, remainder in polynomial form for erroredcodeword *)
+disp(S2, Syndrome bits for erroredcodeword are:')
